@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from shared import __version__
 
 setup(
@@ -8,5 +8,5 @@ setup(
     url='https://github.com/ваш_github/ваш_репозиторий',  # Ссылка на репозиторий (необязательно)
     author='Booblegum',
     author_email='booblegum42@gmail.com',
-    packages=['shared'],  # Список пакетов, которые нужно установить
+    packages=find_packages(exclude=['tests', 'tmp']),  # Список пакетов, которые нужно установить
 )
