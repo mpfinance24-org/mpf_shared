@@ -35,12 +35,12 @@ class SalesReports(Base):
     #     DateTime(timezone=True), server_default=func.now()
     # )
 
-# class Clients(Base):
-#     __tablename__ = 'clients'
-#     id: Mapped[int] = mapped_column(
-#         BigInteger,
-#         primary_key=True
-#     )
-#     name: Mapped[str]
-#     surname: Mapped[str]
-#     wb_apikey: Mapped[str] = mapped_column(String, nullable=False)
+class Clients(Base):
+    __tablename__ = 'clients'
+    id: Mapped[int] = mapped_column(
+        BigInteger,
+        primary_key=True
+    )
+    name: Mapped[str]
+    surname: Mapped[str]
+    wb_apikey: Mapped[str] = mapped_column(String, nullable=False)
