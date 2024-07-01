@@ -5,11 +5,20 @@ from sqlalchemy import Boolean, ForeignKey, Enum, Text, LargeBinary, \
     BigInteger, Table
 from sqlalchemy import Column, Integer, String, JSON, DateTime
 from sqlalchemy.ext.associationproxy import association_proxy
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
+from sqlalchemy.orm import Mapped, mapped_column, validates
 
 from shared.database import Base
+
+
+class Clients(Base):
+    __tablename__ = 'clients'
+    id: Mapped[int] = mapped_column(
+        BigInteger,
+        primary_key=True
+    )
+    name: Mapped[str]
+    surname: Mapped[str]
+    wb_apikey: Mapped[str] = mapped_column(String, nullable=False)
 
 
 class SalesReports(Base):
@@ -35,12 +44,50 @@ class SalesReports(Base):
     #     DateTime(timezone=True), server_default=func.now()
     # )
 
-class Clients(Base):
-    __tablename__ = 'clients'
-    id: Mapped[int] = mapped_column(
-        BigInteger,
+
+# /api/v1/supplier/sales
+class Sales(Base):
+    __tablename__ = 'sales'
+    srid: Mapped[str] = mapped_column(
+        String,
         primary_key=True
     )
-    name: Mapped[str]
-    surname: Mapped[str]
-    wb_apikey: Mapped[str] = mapped_column(String, nullable=False)
+    date: Mapped[datetime] = mapped_column(DateTime)
+    lastChangeDate: Mapped[datetime] = mapped_column(DateTime)
+    warehouseName: Mapped[str]
+    countryName: Mapped[str]
+    oblastOkrugName: Mapped[str]
+    regionName: Mapped[str]
+    supplierArticle: Mapped[str]
+    nmId: Mapped[int]
+    barcode: Mapped[str]
+    category: Mapped[str]
+    subject: Mapped[str]
+    brand: Mapped[str]
+    techSize: Mapped[str]
+    incomeID: Mapped[int]
+    isSupply: Mapped[bool]
+    isRealization: Mapped[bool]
+    totalPrice: Mapped[float]
+    discountPercent: Mapped[int]
+    spp: Mapped[float]
+    paymentSaleAmount: Mapped[int]
+    forPay: Mapped[float]
+    finishedPrice: Mapped[float]
+    priceWithDisc: Mapped[float]
+    saleID: Mapped[str]
+    orderType: Mapped[str]  # choice
+    sticker: Mapped[str]
+    gNumber: Mapped[str]
+
+    @validates('date')
+    def validate_date(self, key, value):
+        if isinstance(value, str):
+            return datetime.fromisoformat(value)
+        return value
+
+    @validates('lastChangeDate')
+    def validate_lastdate(self, key, value):
+        if isinstance(value, str):
+            return datetime.fromisoformat(value)
+        return value
