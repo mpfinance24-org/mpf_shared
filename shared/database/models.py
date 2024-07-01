@@ -52,6 +52,10 @@ class Sales(Base):
         String,
         primary_key=True
     )
+    saleID: Mapped[str] = mapped_column(
+        String,
+        primary_key=True
+    )
     date: Mapped[datetime] = mapped_column(DateTime)
     lastChangeDate: Mapped[datetime] = mapped_column(DateTime)
     warehouseName: Mapped[str]
@@ -75,7 +79,6 @@ class Sales(Base):
     forPay: Mapped[float]
     finishedPrice: Mapped[float]
     priceWithDisc: Mapped[float]
-    saleID: Mapped[str]
     orderType: Mapped[str]  # choice
     sticker: Mapped[str]
     gNumber: Mapped[str]
