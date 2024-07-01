@@ -3,22 +3,7 @@ from typing import (
     Dict,
     List,
 )
-from sqlalchemy import create_engine
-from sqlalchemy.ext.asyncio import async_sessionmaker
-from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import declarative_base, sessionmaker, DeclarativeBase
-
-from app.settings import ASYNC_DATABASE_URI, SYNC_LOCAL_DATABASE_URI
-
-# Замените следующие значения настройками вашей базы данных
-print(f"{ASYNC_DATABASE_URI=}")
-# Асинхронный движок и сессия
-engine = create_async_engine(ASYNC_DATABASE_URI)
-async_session = async_sessionmaker(autocommit=False, autoflush=False, bind=engine, expire_on_commit=False)
-
-# Синхронный движок и сессия для Alembic
-sync_engine = create_engine(SYNC_LOCAL_DATABASE_URI)
-sync_session = sessionmaker(autocommit=False, autoflush=False, bind=sync_engine)
+from sqlalchemy.orm import DeclarativeBase
 
 
 class Base(DeclarativeBase):
@@ -62,4 +47,3 @@ class Base(DeclarativeBase):
         for key in self.__mapper__.c.keys():
             _dict[key] = getattr(self, key)
         return _dict
-

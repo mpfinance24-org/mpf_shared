@@ -12,7 +12,6 @@ from sqlalchemy.sql import func
 from shared.database import Base
 
 
-# MongoDB: from wb_sales_reports
 class SalesReports(Base):
     __tablename__ = 'sales_reports'
     id: Mapped[int] = mapped_column(
@@ -24,7 +23,7 @@ class SalesReports(Base):
     date_to: Mapped[datetime]  # Дата конца отчётного периода
     create_dt: Mapped[datetime]  # Дата формирования отчёта
     currency_name: Mapped[str]  # Валюта отчёта
-    rrd_id: Mapped[int] # номер строки
+    rrd_id: Mapped[int]  # номер строки
     subject_name: Mapped[str]  # Предмет
     nm_id: Mapped[int]  # Артикул WB
     ts_name: Mapped[str]  # Размер
@@ -35,3 +34,13 @@ class SalesReports(Base):
     # created_date: Mapped[datetime.datetime] = mapped_column(
     #     DateTime(timezone=True), server_default=func.now()
     # )
+
+# class Clients(Base):
+#     __tablename__ = 'clients'
+#     id: Mapped[int] = mapped_column(
+#         BigInteger,
+#         primary_key=True
+#     )
+#     name: Mapped[str]
+#     surname: Mapped[str]
+#     wb_apikey: Mapped[str] = mapped_column(String, nullable=False)
